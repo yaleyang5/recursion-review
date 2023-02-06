@@ -10,8 +10,12 @@
 
 // a lot of conditionals
 var stringifyJSON = function(obj) {
+  // console.log(obj);
   // should be checked before anything else
-  // if undefined
+  // if undefined or function
+  if (typeof obj === 'undefined' || typeof obj === 'function') {
+    return undefined;
+  }
   // if null
   if (obj === null) {
     return 'null';
@@ -36,8 +40,12 @@ var stringifyJSON = function(obj) {
     // iterate through obj
     for (var element in obj) {
       // recursively call this function on each element's key and value
-      var stringToStore = stringifyJSON(element) + ':' + stringifyJSON(obj[element]);
-      stringStorageArray.push(stringToStore);
+      var keyToStore = stringifyJSON(element);
+      var valueToStore = stringifyJSON(obj[element]);
+      // logic to check if we need to skip over this pair
+      if (keyToStore !== undefined && valueToStore !== undefined) {
+        stringStorageArray.push(keyToStore + ':' + valueToStore);
+      }
     }
     // return stringified version of array with elements as key-value pairs
     return '{' + stringStorageArray.join(',') + '}';

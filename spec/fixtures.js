@@ -31,6 +31,8 @@ var stringifiableObjects = [
 // hint: JSON does not allow you to stringify functions or
 // undefined values, so you should skip those key/value pairs.
 unstringifiableValues = [
+  function () {},
+  undefined,
   {
     'functions': function() {},
     'undefined': undefined
